@@ -1,0 +1,22 @@
+<HTML>
+	<head></head>
+	<style>
+		body {
+
+		}
+		</style>
+	<body >
+		<p>STATUS: <%= game_status %></p>
+		<p>BAD GUESSES: <%= bad_guesses %></p>
+		<p>GOOD GUESSES: <%= good_guesses %>
+		<p>WORD: <%= word %></p>
+		<form>
+			<input type="text" name="make">
+			<input type="submit" value="Make it!">
+		</form>
+		<form>
+			<input type="text" name="guess">
+			<input type="submit" value="Guess!">
+		</form>
+	</body>
+</HTML>
