@@ -8,7 +8,7 @@ class Hangman
 	@@array_word = []
 	@@array_good_guesses = []
 	@@array_bad_guesses = []
-	@@game_status = "ongoing"
+	@@game_status = ''
 	
 	def initialize
 		
@@ -35,8 +35,10 @@ class Hangman
 		@@array_word = random_word.split(//)
 		@@array_word.pop #remove new line char
 
+		@@array_good_guesses = []
+
 		(@@array_word.length).times do |num|
-			@@array_good_guesses[num] = nil
+			@@array_good_guesses[num] = '&nbsp;'
 		end
 
 		return @@game_status, @@array_bad_guesses, @@array_good_guesses, @@array_word
@@ -50,7 +52,7 @@ class Hangman
 			
 			if guess_letter == word_letter
 				@@array_good_guesses[letter_position] = word_letter
-				unless @@array_good_guesses.include?(nil)
+				unless @@array_good_guesses.include?('&nbsp;')
 					@@array_good_guesses = []
 					@@array_bad_guesses = []
 					@@array_word = []

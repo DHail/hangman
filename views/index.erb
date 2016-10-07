@@ -18,5 +18,9 @@
 			<input type="text" name="guess">
 			<input type="submit" value="Guess!">
 		</form>
+		<% good_guesses.each_with_index do |letter, index| %>
+			<div style="border: 1px solid black; float: left"><%= good_guesses[index] %></div>
+		<% end %>
+
 	</body>
 </HTML>
