@@ -1,26 +1,73 @@
+<!DOCTYPE html>
 <HTML>
-	<head></head>
-	<style>
-		body {
-
-		}
-		</style>
+	<head>
+		<link rel="stylesheet" type="text/css" href="/styles.css">
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Permanent+Marker">
+	</head>
 	<body >
+		<div id="header">
+			HANGMAN
+		</div>
+
+		<div id="main-container-wrapper">
+			<div id="main-container">
+				<div id="left-container">
+					
+					<div id="bad_guesses">
+						<% if bad_guesses %>
+							<% bad_guesses.each do |num| %>
+								<div style="float: left"><%= num %></div>
+							<% end %>
+						<% end %>
+					</div>
+
+					<div id="guess">
+						<%if good_guesses %>
+							<form>
+								<div class="input-box"><input class="input" pattern="[A-Za-z]{1}" type="text" name="guess" maxlength="1" autofocus></div>
+								<div class="input-button"><input type="submit" value="Guess!"></div>
+							</form>
+						<% else %>
+							<form>
+								<div class="input-box"><input class="input" type="text" name="make" min=1 max=9 autofocus></div>
+								<div class="input-button"><input type="submit" value="Make it!"></div>
+							</form>
+						<% end %>
+					</div>
+
+				</div>
+
+				<div id="right-container">
+					<img src="/hangman.jpg">
+				</div>
+
+				<div id="good_guesses">
+					<% if good_guesses %>
+						<% good_guesses.each do |letter| %>
+							<% width = (100 / good_guesses.length).to_i %>
+							<div class="good_letter"><%= letter %></div>
+						<% end %>
+					<% else %>
+						<div class="good_letter">L</div>
+						<div class="good_letter">E</div>
+						<div class="good_letter">T'</div>
+						<div class="good_letter">S</div>
+						<div class="good_letter">&nbsp;</div>
+						<div class="good_letter">P</div>
+						<div class="good_letter">L</div>
+						<div class="good_letter">A</div>
+						<div class="good_letter">Y</div>
+						<div class="good_letter">!</div>
+					<% end %>
+				</div>
+
+			</div>
+		</div>
+
 		<p>STATUS: <%= game_status %></p>
 		<p>BAD GUESSES: <%= bad_guesses %></p>
-		<p>GOOD GUESSES: <%= good_guesses %>
+		<p>GOOD GUESSES: <%= good_guesses %></p>
 		<p>WORD: <%= word %></p>
-		<form>
-			<input type="text" name="make">
-			<input type="submit" value="Make it!">
-		</form>
-		<form>
-			<input type="text" name="guess">
-			<input type="submit" value="Guess!">
-		</form>
-		<% good_guesses.each_with_index do |letter, index| %>
-			<div style="border: 1px solid black; float: left"><%= good_guesses[index] %></div>
-		<% end %>
 
 	</body>
 </HTML>

@@ -24,16 +24,15 @@ class Hangman
 		#dictionary = dictionary.read
 		
 		dictionary.each_line do |word|
-			if word.length == (letters + 1) #must be one more than desired cuz of new line char
+			if word.chomp.length == (letters)
 				array_matching_words << word
 			end
 		end
 
 		random_word_number = rand(array_matching_words.length - 1) #Number of word for game chosen
-		random_word = array_matching_words[random_word_number]
+		random_word = array_matching_words[random_word_number].chomp
 
 		@@array_word = random_word.split(//)
-		@@array_word.pop #remove new line char
 
 		@@array_good_guesses = []
 
