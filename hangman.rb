@@ -4,11 +4,9 @@ require 'open-uri'
 
 class Hangman
 
-	@@bad_guesses = 0
 	@@array_word = []
 	@@array_good_guesses = []
 	@@array_bad_guesses = []
-	@@game_status = ''
 	
 	def initialize
 		
@@ -29,7 +27,7 @@ class Hangman
 			end
 		end
 
-		random_word_number = rand(array_matching_words.length - 1) #Number of word for game chosen
+		random_word_number = rand(array_matching_words.length - 1) #Position of the word in array
 		random_word = array_matching_words[random_word_number].chomp
 
 		@@array_word = random_word.split(//)
@@ -40,7 +38,7 @@ class Hangman
 			@@array_good_guesses[num] = '&nbsp;'
 		end
 
-		return @@game_status, @@array_bad_guesses, @@array_good_guesses, @@array_word
+		return @@array_bad_guesses, @@array_good_guesses, @@array_word
 	end
 
 	def self.check_guess(guess_letter)
@@ -51,13 +49,6 @@ class Hangman
 			
 			if guess_letter == word_letter
 				@@array_good_guesses[letter_position] = word_letter
-				unless @@array_good_guesses.include?('&nbsp;')
-					@@array_good_guesses = []
-					@@array_bad_guesses = []
-					@@array_word = []
-					@@game_status = "won"
-					return @@game_status, @@array_bad_guesses, @@array_good_guesses, @@array_word
-				end
 			end
 		end
 
@@ -66,29 +57,38 @@ class Hangman
 			unless @@array_bad_guesses.include?(guess_letter)
 				@@array_bad_guesses << guess_letter
 			end
-			
-			if @@array_bad_guesses.length >= 5
-				@@game_status = "lost"
-				@@array_bad_guesses = []
-				return @@game_status, @@array_bad_guesses, @@array_good_guesses, @@array_word
-			end
 
-			@@bad_guesses += 1
-			@@game_status = "ongoing"
-			return @@game_status, @@array_bad_guesses, @@array_good_guesses, @@array_word
+			return @@array_bad_guesses, @@array_good_guesses, @@array_word
 		end
-		return @@game_status, @@array_bad_guesses, @@array_good_guesses, @@array_word
+		return @@array_bad_guesses, @@array_good_guesses, @@array_word
+	end
+
+	def self.new_game
+
+		@@array_word = []
+		@@array_good_guesses = nil
+		@@array_bad_guesses = []
+		
+		return @@array_bad_guesses, @@array_good_guesses, @@array_word
+
 	end
 end
 
 get '/' do
 	
 	if params['make'] != nil
-		make = params['make'].to_i
-		game_status, bad_guesses, good_guesses, word = Hangman.get_word(make)
+		if params['make'] == ''
+			make = 6
+		else
+			make = params['make'].to_i
+		end
+		bad_guesses, good_guesses, word = Hangman.get_word(make)
 	elsif params['guess'] != nil
 		guess = params['guess'].to_s
-		game_status, bad_guesses, good_guesses, word = Hangman.check_guess(guess)
+		bad_guesses, good_guesses, word = Hangman.check_guess(guess)
+	elsif params['game'] != nil
+		game = params['game'].to_s
+		bad_guesses, good_guesses, word = Hangman.new_game
 	end
-  erb :index, :locals => {:game_status => game_status, :bad_guesses => bad_guesses, :good_guesses => good_guesses, :word => word}
+  erb :index, :locals => {:bad_guesses => bad_guesses, :good_guesses => good_guesses, :word => word}
 end
