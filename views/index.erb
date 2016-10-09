@@ -16,7 +16,13 @@
 					<div id="bad_guesses">
 						<% if bad_guesses %>
 							<% bad_guesses.each do |num| %>
-								<div style="float: left"><%= num %></div>
+								<% randx = rand(30) %>
+								<% randy = rand(25) %>
+								<div class="bad-letter" style="margin-top: <%= randy %>px; margin-left: <%= randx %>px;"><%= num %>
+									<div class="bad-letter-strike"><img src="/strike.png"></div>
+								</div>
+								
+								
 							<% end %>
 						<% end %>
 					</div>
@@ -24,13 +30,15 @@
 					<div id="guess">
 						<%if good_guesses %>
 							<form>
-								<div class="input-box"><input class="input" pattern="[A-Za-z]{1}" type="text" name="guess" maxlength="1" autofocus></div>
-								<div class="input-button"><input type="submit" value="Guess!"></div>
+								<div class="input-title">Enter Letter</div>
+								<div class="input-box"><input class="input" pattern="[A-Za-z]{1}" type="text" name="guess" maxlength="1" autofocus autocomplete="off"></div>
+								<div class="input-button"><input class="submit-button" type="submit" value="-> Guess!"></div>
 							</form>
 						<% else %>
 							<form>
-								<div class="input-box"><input class="input" type="text" name="make" min=1 max=9 autofocus></div>
-								<div class="input-button"><input type="submit" value="Make it!"></div>
+								<div class="input-title"># of Letters?</div>
+								<div class="input-box"><input class="input" "^\d{1,2}$" type="text" name="make" min=1 max=15 autofocus autocomplete="off"></div>
+								<div class="input-button"><input class="submit-button" type="submit" value="Make it!"></div>
 							</form>
 						<% end %>
 					</div>
@@ -38,7 +46,27 @@
 				</div>
 
 				<div id="right-container">
-					<img src="/hangman.jpg">
+
+					<% if bad_guesses %>
+						<% bad_guess_length = bad_guesses.length %>
+						<% if bad_guess_length == 0 %>
+							<img src="/hangman0.jpg">
+						<% elsif bad_guess_length == 1 %>
+							<img src="/hangman1.jpg">
+						<% elsif bad_guess_length == 2 %>
+							<img src="/hangman2.jpg">
+						<% elsif bad_guess_length == 3 %>
+							<img src="/hangman3.jpg">
+						<% elsif bad_guess_length == 4 %>
+							<img src="/hangman4.jpg">
+						<% elsif bad_guess_length == 5 %>
+							<img src="/hangman5.jpg">
+						<% elsif bad_guess_length == 6 %>
+							<img src="/hangman6.jpg">
+						<% end %>
+					<% else %>
+						<img src="/hangman0.jpg">
+					<% end %>
 				</div>
 
 				<div id="good_guesses">
