@@ -78,7 +78,7 @@ get '/' do
 	
 	if params['make'] != nil
 		if params['make'] == ''
-			make = 6
+			make = 7
 		else
 			make = params['make'].to_i
 		end

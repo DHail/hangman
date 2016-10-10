@@ -15,7 +15,7 @@
 					
 					<div id="bad_guesses">
 						<% if bad_guesses %>
-							<% if bad_guesses.length <5 %>
+							<% if bad_guesses.length <5 && good_guesses && good_guesses.join != word.join %>
 								<% bad_guesses.each do |num| %>
 									<% randx = rand(10) %>
 									<% randy = rand(25) %>
@@ -29,19 +29,22 @@
 
 					<div id="guess">
 						<%if good_guesses && good_guesses.join == word.join %>
+							
 							<div class="lost">
 								<span class="lost-title">You WON!</span>
-
 							</div>
+
 							<div class="play-again">
 								<a href="/?game=new">-> Play Again"</a>
 							</div>
+
 						<% elsif good_guesses && bad_guesses.length < 5 %>
 							<form>
 								<div class="input-title">Enter Letter</div>
 								<div class="input-box"><input class="input" pattern="[A-Za-z]{1}" type="text" name="guess" maxlength="1" autofocus autocomplete="off"></div>
 								<div class="input-button"><input class="submit-button" type="submit" value="-> Guess!"></div>
 							</form>
+
 						<% elsif good_guesses && bad_guesses.length >= 5 %>
 							<div class="lost">
 								<span class="lost-title">You Lost!</span>
@@ -112,7 +115,6 @@
 
 			</div>
 		</div>
-
 		
 
 	</body>
