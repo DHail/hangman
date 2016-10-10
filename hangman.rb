@@ -16,9 +16,7 @@ class Hangman
 		url = "http://s3.amazonaws.com/viking_education/web_development/web_app_eng/enable.txt"
 		local_file = "enable.txt"
 		dictionary = File.open(local_file, "r")
-		##dictionary = File.open("enable.txt", "r")#replace this with url stuff
-		#dictionary = dictionary.read
-		
+			
 		dictionary.each_line do |word|
 			if word.chomp.length == (letters)
 				array_matching_words << word
