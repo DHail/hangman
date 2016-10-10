@@ -68,12 +68,18 @@ a {
 #header {
 	font-size: 80px;
 	text-align: center;
-	height: 150px;
-	line-height: 150px;
+	height: 120px;
+	line-height: 120px;
 	background-color: #000;
 	color: #fff;
 	width: 100%;
 	z-index: 101;
+}
+
+#head-border {
+	height: 48px;
+	width: 100%;
+
 }
 
 
@@ -202,7 +208,7 @@ input[type=number]::-webkit-outer-spin-button {
 	margin: 40px 100px 0 0;
 }
 
-#good_guesses .good_letter {
+.good_letter {
 	float: left;
 	padding: 0 10px;
 	text-align: center;
@@ -214,4 +220,5 @@ input[type=number]::-webkit-outer-spin-button {
 	width: 605px;
 	display: inline-block;
 	vertical-align: top;
+	
 }
